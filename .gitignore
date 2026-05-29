@@ -1,0 +1,137 @@
+
+# ---- SEGREDOS E CREDENCIAIS (BLOQUEIO ABSOLUTO) ----
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+.env.test
+*.env
+
+# Tokens e chaves de API
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+secrets.json
+credentials.json
+service-account*.json
+google-services.json
+GoogleService-Info.plist
+
+# Keystores Android (NUNCA commitar)
+*.jks
+*.keystore
+local.properties
+android/app/lucatur-release.jks
+android/key.properties
+
+# ---- BUILDS E ARTEFATOS GERADOS ----
+# Android
+android/app/build/
+android/.gradle/
+android/build/
+*.apk
+*.aab
+*.aar
+*.ap_
+*.dex
+
+# Web build
+dist/
+out/
+build/
+.next/
+.nuxt/
+
+# Netlify
+.netlify/
+.netlify-functions-serve/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn
+
+# ---- CACHES ----
+.gradle/
+.cache/
+*.cache
+.parcel-cache/
+.turbo/
+
+# ---- LOGS ----
+logs/
+*.log
+*.log.*
+log_*.txt
+npm-debug.log
+error.log
+
+# ---- CONFIGURAÇÕES LOCAIS DE IDE ----
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ---- CONFIGURAÇÕES LOCAIS DO SISTEMA ----
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+
+# ---- BACKUPS E EXPORTAÇÕES ----
+*.bak
+*.backup
+*.old
+*.orig
+backup/
+backups/
+exports/
+export_*.sql
+dump_*.sql
+*.dump
+
+# ---- DADOS REAIS (BLOQUEIO EXPLÍCITO) ----
+data/real/
+data/prod/
+data/producao/
+*_real.*
+*_prod.*
+*_producao.*
+*-real.*
+*-prod.*
+
+# ---- CLAUDE CODE ----
+.claude/
+
+# ---- DENO / OUTROS RUNTIMES ----
+deno.lock
+
+# ---- ARQUIVOS TEMPORÁRIOS ----
+tmp/
+temp/
+*.tmp
+*.temp
+
+# ---- CERTIFICADOS TLS ----
+*.crt
+*.cer
+*.ca-bundle
+
+# ---- CONFIGURAÇÕES CAPACITOR LOCAL ----
+capacitor.config.local.json

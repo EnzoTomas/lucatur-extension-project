@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+
+// Carrega credenciais de key.properties (não commitado) ou de variáveis de ambiente no CI
+def keystorePropertiesFile = rootProject.file("key.properties")
+def keystoreProperties = new Properties()
+
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+} else {
+    keystoreProperties['storePassword'] = System.getenv('KEYSTORE_PASSWORD') ?: ''
+    keystoreProperties['keyPassword']   = System.getenv('KEY_PASSWORD') ?: ''
+    keystoreProperties['keyAlias']      = System.getenv('KEY_ALIAS') ?: ''
+    keystoreProperties['storeFile']     = System.getenv('KEYSTORE_PATH') ?: ''
+}
+
+android {
+    namespace "com.exemplo.lucaturdemo"
+    compileSdkVersion 34
+
+    defaultConfig {
+        applicationId "com.exemplo.lucaturdemo"
+        minSdkVersion 22
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0.0"
+
+        buildConfigField "String", "SUPABASE_URL",      "\"${System.getenv('SUPABASE_URL') ?: ''}\""
+        buildConfigField "String", "SUPABASE_ANON_KEY", "\"${System.getenv('SUPABASE_ANON_KEY') ?: ''}\""
+    }
+
+    signingConfigs {
+        release {
+            if (keystoreProperties['storeFile']) {
+                storeFile     file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias      keystoreProperties['keyAlias']
+                keyPassword   keystoreProperties['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            debuggable true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+/*
+  android/key.properties (não commitar — já está no .gitignore):
+
+  storePassword=sua_senha
+  keyPassword=sua_senha_key
+  keyAlias=seu-alias
+  storeFile=../app/seu-keystore.jks
+*/
